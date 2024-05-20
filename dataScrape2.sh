@@ -34,18 +34,3 @@ sleep 3
 
 # Close FaceTime
 killall FaceTime
-
-python3 infoParse.py
-python3 labelBuilder.py
-python3 txtToPng.py
-
-cat label.txt
-
-# Prompt the user to print label
-read -p "Do you want to print a label? (y/n): " print_label
-
-if [[ $print_label == "y" ]]; then
-    export BROTHER_QL_PRINTER=tcp://192.168.0.43
-    export BROTHER_QL_MODEL=QL-710W
-    brother_ql print -l 29 -r 90 printReadyLabel.png
-fi

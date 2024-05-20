@@ -1,5 +1,0 @@
-Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
-16.00 GB
-466Gi
-C02ZKBCDMD6M
-<?xml version="1.0" encoding="utf-8" ?><root><name>CPU Name</name><configCode>MacBook Pro (16-inch, 2019)</configCode><locale>en_US</locale></root>

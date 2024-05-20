@@ -37,8 +37,13 @@ def parseXML(xml):
     return model_name
 
 def getYear(model_name):
-    year = model_name.split()[-1][:-1]
-    return year
+        # Regular expression pattern to match the year in the format "(YYYY)" or "YYYY)"
+    pattern = r'\(?(\d{4})\)?'
+    match = re.search(pattern, model_name)
+    if match:
+        return match.group(1)
+    else:
+        return None
 
 def getScreenSize(model_name):
     screen_size = model_name.split()[-2]
