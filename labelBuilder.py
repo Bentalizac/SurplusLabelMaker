@@ -1,35 +1,39 @@
+
 import json
 import time
 
-# Assuming your JSON file is named 'data.json'
-with open('info.json', 'r') as file:
-    data = json.load(file)
+def build_label(inputFile, outputFile):
 
-# 'data' now contains the contents of the JSON file as a dictionary
-print(data)
 
-def build_line_one(data):
-    os = data['os'].split()[0]
+    # Assuming your JSON file is named 'data.json'
+    with open(inputFile, 'r') as file:
+        data = json.load(file)
 
-    cpu_info = data["u_processor_type"] + "-" 
-    cpu_info += data["processor_generation"] + " " +data["cpu_speed"] + " GHz"
-    return os + " " + cpu_info + "\n"
+    # 'data' now contains the contents of the JSON file as a dictionary
+    print(data)
 
-def build_line_two(data):
-    ram = str(float(data["ram"])/1000) + "GB"
-    storage = data["disk_space"]
-    return "RAM: " + ram + " \nStorage: " + storage + "\n"
+    def build_line_one(data):
+        os = data['os'].split()[0]
 
-def build_line_three(data):
-    return "B: [   ] W: [   ] C: [   ]\n"
+        cpu_info = data["u_processor_type"] + "-" 
+        cpu_info += data["processor_generation"] + " " +data["cpu_speed"] + " GHz"
+        return os + " " + cpu_info + "\n"
 
-def build_line_four():
-    return "R4R: " +  time.strftime("%m/%d/%Y") + "\n"
+    def build_line_two(data):
+        ram = str(float(data["ram"])/1000) + "GB"
+        storage = data["disk_space"]
+        return "RAM: " + ram + " \nStorage: " + storage + "\n"
 
-def make_label(data):
-    return build_line_one(data) + build_line_two(data) +  build_line_three(data) + build_line_four()
+    def build_line_three(data):
+        return "B: [   ] W: [   ] C: [   ]\n"
 
-print(make_label(data))
+    def build_line_four():
+        return "R4R: " +  time.strftime("%m/%d/%Y") + "\n"
 
-with open('label.txt', 'w') as file:
-    file.write(make_label(data))
+    def make_label(data):
+        return build_line_one(data) + build_line_two(data) +  build_line_three(data) + build_line_four()
+
+    print(make_label(data))
+
+    with open(outputFile, 'w') as file:
+        file.write(make_label(data))

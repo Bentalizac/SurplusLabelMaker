@@ -1,5 +1,0 @@
-Sonoma i7-9750H 2.60GHz
-RAM: 16.00 GB
-Storage: 466 GB
-B: [   ] W: [   ] C: [   ]
-R4R: 05/15/2024
