@@ -1,13 +1,19 @@
 ### For whoever has to deal with this next. This whole thing is taking the guts out of the brother_ql package to make it run as a script instead of as a commandline prompt. There's probably an easier way, but this needed to compile down.
+### Essentially what this does is calls the brother_ql package's functions that print a label, but it uses hardcoded variables instead of the CLI tools the package uses to determine context. 
 def printLabel():
     from brother_ql.conversion import convert
     from brother_ql.backends.helpers import send
     from brother_ql.raster import BrotherQLRaster
 
+
+    # These are the values we actually care about
+
     # Hardcoded values for the arguments
     images = ["printReadyLabel.png"]  # List of image paths
     label = '29'  # Example label size
     rotate = '90'  # Rotation option
+
+
     threshold = 70.0  # Threshold   
     dither = False  # Dithering flag
     compress = False  # Compression flag

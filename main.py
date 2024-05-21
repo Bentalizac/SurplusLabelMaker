@@ -21,31 +21,37 @@ def cameraCheck():
 
 def menu():
     while True:
-        print("Options:\n1: Print label\n2: Inventory via ServiceNow \n3: Print label AND inventory")
-        choice = input("\n>>>")
+        print("""
+              Options:\n
+              1: Print label\n
+              2: Inventory via ServiceNow \n
+              3: Print label AND inventory\n 
+              q: Quit
+              """)
+        choice = input(">>>")
         if choice == "1":
             printLabel()
             cameraCheck()
+
         elif choice == "2":
-            ... #TODO finish rebuilding inventory script.
+            print("INVENTORY NOT IMPLEMENTED")
+            # TODO rebuild inventory script
 
         elif choice == "3":
             printLabel()
             cameraCheck()
-
+            print("INVENTORY NOT IMPLEMENTED")
             # TODO rebuild inventory script
+
+        elif choice.lower() == "q":
+            break
 
 
 def main():
-
-    cameraCheck()
-
     parseInfo("info.txt", "info.json")
     build_label("info.json", "label.txt")
     convert("label.txt", "printReadyLabel.png")
 
-    printFlag = input("Would you like to print a label? (y/n)\n")
-    if printFlag.lower() == "y":
-    #    printLabel()
-        ...
+    menu()
+
 main()
