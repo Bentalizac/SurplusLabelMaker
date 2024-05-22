@@ -2,4 +2,4 @@ Sonoma i5-8500B 3 GHz
 RAM: 8.0GB 
 Storage: 233 GB
 B: [   ] W: [   ] C: [   ]
-R4R: 05/21/2024
+R4R: 05/22/2024

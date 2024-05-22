@@ -84,7 +84,6 @@ def parseInfo(inputFile, outputFile):
         data['cpu_speed'] = parseCPUSpeed(cpuInfo[-1])
         data['ram'] = parseRAM(ramInfo)
         data['disk_space'] = getStorage(diskInfo)
-        #data['date'] = time.strftime("%m/%d/%Y") Removed for servicenow pickiness
         data['u_category'] = getCategory(parseXML(xml))
         data["u_device_name"] = "Rental-" + serialNumber
         data["manufacturer"] = "Apple"

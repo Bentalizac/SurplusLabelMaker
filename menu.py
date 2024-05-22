@@ -6,6 +6,7 @@ from infoParse import parseInfo
 from txtToPng import convert
 from labelBuilder import build_label
 from directPrint import printLabel
+from serviceNowInterface import updateServiceNow
 
 """
 
@@ -19,14 +20,22 @@ def cameraCheck():
     time.sleep(3)
     subprocess.run(["killall", "FaceTime"])
 
+def printPreview():
+    with open("label.txt", 'r') as file:
+        text = file.read()
+    
+    print(text)
+
 def menu():
+    subprocess.run(["clear"])
     while True:
         print("""
-              Options:\n
-              1: Print label\n
-              2: Inventory via ServiceNow \n
-              3: Print label AND inventory\n 
-              q: Quit
+Options:
+1: Print label
+2: Inventory via ServiceNow
+3: Print label AND inventory
+4: Preview label
+q: Quit
               """)
         choice = input(">>>")
         if choice == "1":
@@ -34,18 +43,19 @@ def menu():
             cameraCheck()
 
         elif choice == "2":
-            print("INVENTORY NOT IMPLEMENTED")
-            # TODO rebuild inventory script
+            updateServiceNow()
 
         elif choice == "3":
             printLabel()
             cameraCheck()
-            print("INVENTORY NOT IMPLEMENTED")
-            # TODO rebuild inventory script
+            updateServiceNow()
+
+        elif choice == "4":
+            printPreview()
 
         elif choice.lower() == "q":
             break
-
+    subprocess.run(["clear"])
 
 def main():
     parseInfo("info.txt", "info.json")

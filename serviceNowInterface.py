@@ -1,15 +1,11 @@
 import json
 import requests
+import subprocess
 
 # Open the JSON file
-with open('info.json') as file:
-    # Load the JSON data into a dictionary
-    
-    contents = file.read()
-    data = json.loads(contents)
 
-# Access the dictionary values
-print(data)
+with open('_internal/credentials.json') as auth:
+    creds = json.loads(auth.read())
 
 def insert_icn(icn, contents):
     contents = contents[:-1] + f',"u_icn":"{icn}","name":"{icn}"' + "}"
@@ -20,8 +16,8 @@ def device_exists(serial):
     url = f'https://byusandbox.service-now.com/api/now/table/u_cmdb_ci_computer_rental?sysparm_fields=u_icn&sysparm_limit=10&serial_number={serial}'
 
     # Eg. User name="admin", Password="admin" for this code sample.
-    user = 'comprental-ws'
-    pwd = 'DD10rental'
+    user = creds['user']
+    pwd = creds['pwd']
 
     # Set proper headers
     headers = {"Content-Type":"application/json","Accept":"application/json"}
@@ -47,8 +43,8 @@ def create_record(data):
     url = 'https://byusandbox.service-now.com/api/now/table/u_cmdb_ci_computer_rental?sysparm_fields=u_icn'
 
     # Eg. User name="admin", Password="admin" for this code sample.
-    user = 'comprental-ws'
-    pwd = 'DD10rental'
+    user = creds['user']
+    pwd = creds['pwd']
 
     # Set proper headers
     headers = {"Content-Type":"application/json","Accept":"application/json"}
@@ -61,10 +57,10 @@ def create_record(data):
     print("\nResponse:", data)
 
 def fetch_record(serialNumber):
-    url = f'https://byusandbox.service-now.com/api/now/table/u_cmdb_ci_computer_rental?sysparm_fields=u_icn,model_number&sysparm_limit=10&serial_number={serialNumber}'
+    url = f'https://byusandbox.service-now.com/api/now/table/u_cmdb_ci_computer_rental?sysparm_fields=u_icn,model_number,serial_number&sysparm_limit=10&serial_number={serialNumber}'
 
-    user = 'comprental-ws'
-    pwd = 'DD10rental'
+    user = creds['user']
+    pwd = creds['pwd']
 
     headers = {"Content-Type":"application/json","Accept":"application/json"}
 
@@ -77,21 +73,42 @@ def fetch_record(serialNumber):
     data = response.json()
     return data
 
-def parseJSON(data):
-    #data = data['result'][0]
-    records = []
-    for item in data:
+def verifyRecords(data):
+    if len(data['result']) > 1:
+        print("The following records exist with the same serial number.\nYou need to manually go to ServiceNow and either delete or merge the duplicate records")
+        for item in data['result']:
+            print("------------------------------")
+            for field in item:
+                print("    " + field + " : " + item[field])            
+        confirm = input("Enter y to acknowledge that you need to fix this problem that you might have made.\n>>> ")
+        if confirm == "quit":
+            return
+        if confirm.lower() != 'y':
+            subprocess.run(["clear"])
+            verifyRecords(data)
+    else:
+        print("The following record exists in ServiceNow:")
+        for item in data['result']:
+            print("------------------------------")
+            for field in item:
+                print("    " + field + " : " + item[field])            
         
-    return records
+def updateServiceNow():
 
-def run():
-    print(fetch_record(data['serial_number']))
-    if not device_exists("oompaLoompa"):
+    with open('info.json') as file:
+    # Load the JSON data into a dictionary
+        contents = file.read()
+        data = json.loads(contents)
+
+    with open('_internal/credentials.json') as auth:
+        creds = json.loads(auth.read())
+
+
+    if not device_exists(data['serial_number']):
         assetTag = input("Device not found in ServiceNow.\nEnter the asset tag/ICN exactly as it appears, including '-'\n>>> ")
         data['u_icn'] = assetTag
         create_record(insert_icn(assetTag, contents))
-
-    print("FETCHED: ", parseJSON(fetch_record(data['serial_number'])))
-    
-
-run()
+    else:
+        print("Device already exists in ServiceNow.")
+    result = fetch_record(data['serial_number'])
+    verifyRecords(result)

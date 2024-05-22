@@ -8,8 +8,8 @@ rm printReadyLabel.png
 ./dataScrape.sh > info.txt
 
 
-#./main
-python3 main.py
+#./menu
+python3 menu.py
 
 clear
 
