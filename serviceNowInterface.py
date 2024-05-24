@@ -4,7 +4,7 @@ import subprocess
 
 # Open the JSON file
 
-with open('_internal/credentials.json') as auth:
+with open('credentials.json') as auth:
     creds = json.loads(auth.read())
 
 def insert_icn(icn, contents):
@@ -93,12 +93,8 @@ def verifyRecords(data):
             for field in item:
                 print("    " + field + " : " + item[field])            
         
-def updateServiceNow():
+def updateServiceNow(data):
 
-    with open('info.json') as file:
-    # Load the JSON data into a dictionary
-        contents = file.read()
-        data = json.loads(contents)
 
     with open('_internal/credentials.json') as auth:
         creds = json.loads(auth.read())
@@ -107,7 +103,7 @@ def updateServiceNow():
     if not device_exists(data['serial_number']):
         assetTag = input("Device not found in ServiceNow.\nEnter the asset tag/ICN exactly as it appears, including '-'\n>>> ")
         data['u_icn'] = assetTag
-        create_record(insert_icn(assetTag, contents))
+        create_record(insert_icn(assetTag, data))
     else:
         print("Device already exists in ServiceNow.")
     result = fetch_record(data['serial_number'])

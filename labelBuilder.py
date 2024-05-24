@@ -2,13 +2,10 @@
 import json
 import time
 
-def build_label(inputFile, outputFile):
+def build_label(inputJSON):
 
 
-    # Assuming your JSON file is named 'data.json'
-    with open(inputFile, 'r') as file:
-        data = json.load(file)
-
+    data = inputJSON
     # 'data' now contains the contents of the JSON file as a dictionary
     print(data)
 
@@ -35,5 +32,4 @@ def build_label(inputFile, outputFile):
 
     print(make_label(data))
 
-    with open(outputFile, 'w') as file:
-        file.write(make_label(data))
+    return make_label(data)

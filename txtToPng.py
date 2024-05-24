@@ -1,10 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 
-def convert(inputFile, outputFile):
+def convert(text, outputFile):
 
-    # Read the text file
-    with open(inputFile, 'r') as file:
-        text = file.read()
 
     # Set the new image dimensions and font
     width, height = 1500, 600  # Set the desired width and height

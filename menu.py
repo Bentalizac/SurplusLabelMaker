@@ -20,13 +20,11 @@ def cameraCheck():
     time.sleep(3)
     subprocess.run(["killall", "FaceTime"])
 
-def printPreview():
-    with open("label.txt", 'r') as file:
-        text = file.read()
-    
-    print(text)
+def printPreview(jsonInfo):
+    labelString = build_label(jsonInfo)
+    print(labelString)
 
-def menu():
+def menu(jsonInfo):
     subprocess.run(["clear"])
     while True:
         print("""
@@ -43,25 +41,28 @@ q: Quit
             cameraCheck()
 
         elif choice == "2":
-            updateServiceNow()
+            updateServiceNow(jsonInfo)
 
         elif choice == "3":
             printLabel()
             cameraCheck()
-            updateServiceNow()
+            updateServiceNow(jsonInfo)
 
         elif choice == "4":
-            printPreview()
+            printPreview(jsonInfo)
 
         elif choice.lower() == "q":
             break
     subprocess.run(["clear"])
 
 def main():
-    parseInfo("info.txt", "info.json")
-    build_label("info.json", "label.txt")
-    convert("label.txt", "printReadyLabel.png")
 
-    menu()
+    # TODO fix whatever in here is throwing bugs about files not existing at the right times.
+
+    jsonInfo = parseInfo("info.txt", "info.json")
+    labelString = build_label(jsonInfo)
+    convert(labelString, "printReadyLabel.png")
+ 
+    menu(jsonInfo)
 
 main()

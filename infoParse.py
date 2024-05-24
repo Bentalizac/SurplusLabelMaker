@@ -27,6 +27,7 @@ def parseInfo(inputFile, outputFile):
         return str(number) + " " + characters
 
 
+
     def get_MacOs_Name():
         MacOs_names = {'16': 'Sierra', '17': 'High Sierra', '18': 'Mojave', '19': 'Catalina (10.15)', '20':'Big Sur (11.0)', '21':'Monterey (12)', '22':'Ventura (13)', '23':'Sonoma (14)'}
         darwin_Ver = platform.release()
@@ -89,5 +90,7 @@ def parseInfo(inputFile, outputFile):
         data["manufacturer"] = "Apple"
         with open(outputFile, 'w') as file:
             json.dump(data, file)
+        
+        return data
 
-    buildJSON()
+    return buildJSON()

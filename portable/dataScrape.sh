@@ -24,24 +24,3 @@ get_ram
 get_total_storage
 echo $full_serial
 curl -o - "$url"
-
-
-# Open FaceTime
-open -a FaceTime
-
-# Wait for 5 seconds
-sleep 3
-
-# Close FaceTime
-killall FaceTime
-
-./main
-
-cat label.txt
-
-# Prompt the user to print label
-read -p "Do you want to print a label? (y/n): " print_label
-
-if [[ $print_label == "y" ]]; then
-   
-fi
