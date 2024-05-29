@@ -8,6 +8,7 @@ with open('credentials.json') as auth:
     creds = json.loads(auth.read())
 
 def insert_icn(icn, contents):
+    print(contents)
     contents = contents[:-1] + f',"u_icn":"{icn}","name":"{icn}"' + "}"
     return contents
 
@@ -100,11 +101,17 @@ def updateServiceNow(data):
         creds = json.loads(auth.read())
 
 
-    if not device_exists(data['serial_number']):
+    if not device_exists(data['serial_number'] + "oompa"):
         assetTag = input("Device not found in ServiceNow.\nEnter the asset tag/ICN exactly as it appears, including '-'\n>>> ")
         data['u_icn'] = assetTag
-        create_record(insert_icn(assetTag, data))
+        for item in data:
+            print(item, "|", data[item])
+        #create_record(insert_icn(assetTag, data))
+        create_record(data)
     else:
         print("Device already exists in ServiceNow.")
     result = fetch_record(data['serial_number'])
     verifyRecords(result)
+
+
+# TODO Fix the create_record function to convert the python dictionary to ServiceNow-acceptable JSON.

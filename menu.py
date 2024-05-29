@@ -25,7 +25,7 @@ def printPreview(jsonInfo):
     print(labelString)
 
 def menu(jsonInfo):
-    subprocess.run(["clear"])
+    #subprocess.run(["clear"])
     while True:
         print("""
 Options:
@@ -53,12 +53,11 @@ q: Quit
 
         elif choice.lower() == "q":
             break
-    subprocess.run(["clear"])
+    #subprocess.run(["clear"])
 
 def main():
 
-    # TODO fix whatever in here is throwing bugs about files not existing at the right times.
-
+    # TODO File creation issues resolved, but the servicenow seems to break when compiled and run on another machine
     jsonInfo = parseInfo("info.txt", "info.json")
     labelString = build_label(jsonInfo)
     convert(labelString, "printReadyLabel.png")
