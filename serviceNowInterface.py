@@ -96,22 +96,16 @@ def verifyRecords(data):
         
 def updateServiceNow(data):
 
-
     with open('_internal/credentials.json') as auth:
         creds = json.loads(auth.read())
 
-
-    if not device_exists(data['serial_number'] + "oompa"):
+    if not device_exists(data['serial_number']):
         assetTag = input("Device not found in ServiceNow.\nEnter the asset tag/ICN exactly as it appears, including '-'\n>>> ")
         data['u_icn'] = assetTag
-        for item in data:
-            print(item, "|", data[item])
-        #create_record(insert_icn(assetTag, data))
-        create_record(data)
+        json_data = json.dumps(data, indent = 4)
+        print(json_data)
+        create_record(json_data)
     else:
         print("Device already exists in ServiceNow.")
     result = fetch_record(data['serial_number'])
     verifyRecords(result)
-
-
-# TODO Fix the create_record function to convert the python dictionary to ServiceNow-acceptable JSON.

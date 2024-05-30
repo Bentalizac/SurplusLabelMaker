@@ -25,7 +25,7 @@ def printPreview(jsonInfo):
     print(labelString)
 
 def menu(jsonInfo):
-    #subprocess.run(["clear"])
+    subprocess.run(["clear"])
     while True:
         print("""
 Options:
@@ -53,7 +53,7 @@ q: Quit
 
         elif choice.lower() == "q":
             break
-    #subprocess.run(["clear"])
+    subprocess.run(["clear"])
 
 def main():
 

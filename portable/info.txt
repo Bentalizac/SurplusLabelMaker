@@ -1,0 +1,5 @@
+Intel(R) Core(TM) i5-8500B CPU @ 3.00GHz
+8.00 GB
+233Gi
+C07Y54AWJYVX
+<?xml version="1.0" encoding="utf-8" ?><root><name>CPU Name</name><configCode>Mac mini (2018)</configCode><locale>en_US</locale></root>
