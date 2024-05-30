@@ -85,7 +85,7 @@ def verifyRecords(data):
         if confirm == "quit":
             return
         if confirm.lower() != 'y':
-            subprocess.run(["clear"])
+            #subprocess.run(["clear"])
             verifyRecords(data)
     else:
         print("The following record exists in ServiceNow:")

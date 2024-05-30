@@ -14,7 +14,6 @@ This script runs all the pieces of Python code. It is OS-specific, so if you're 
 
 """
 
-
 def cameraCheck(): 
     subprocess.run(["open", "-a", "Facetime"], capture_output=True, text=True)
     time.sleep(3)
@@ -23,9 +22,9 @@ def cameraCheck():
 def printPreview(jsonInfo):
     labelString = build_label(jsonInfo)
     print(labelString)
-
+ 
 def menu(jsonInfo):
-    subprocess.run(["clear"])
+    #subprocess.run(["clear"])
     while True:
         print("""
 Options:
@@ -53,7 +52,7 @@ q: Quit
 
         elif choice.lower() == "q":
             break
-    subprocess.run(["clear"])
+    #subprocess.run(["clear"])
 
 def main():
 
